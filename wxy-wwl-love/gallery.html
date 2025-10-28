@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>照片墙 · wxy ❤ wwl</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <h1>照片墙</h1>
+  <nav>
+    <a href="/index.html">首页</a>
+    <a href="/calendar.html">日历回忆</a>
+    <a href="/music.html">背景音乐</a>
+    <a href="/admin.html">管理页</a>
+  </nav>
+</header>
+<main class="gallery-page">
+  <div id="photoGrid" class="photo-grid"></div>
+  <p class="hint">提示：点击任意照片可跳转到当天的回忆。</p>
+</main>
+<footer class="site-footer">
+  <p>© <span id="year"></span> wxy-wwl.love</p>
+</footer>
+<script src="/assets/js/common.js"></script>
+<script src="/assets/js/gallery.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

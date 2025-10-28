@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>管理页 · wxy ❤ wwl</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <h1>管理页</h1>
+  <nav>
+    <a href="/index.html">首页</a>
+    <a href="/calendar.html">日历回忆</a>
+    <a href="/gallery.html">照片墙</a>
+    <a href="/music.html">背景音乐</a>
+  </nav>
+</header>
+<main class="admin-page">
+  <section class="card">
+    <h2>仓库设置</h2>
+    <label>Owner（GitHub 用户名）<input id="ghOwner" placeholder="your-username"></label>
+    <label>Repo（仓库名）<input id="ghRepo" placeholder="wxy-wwl-love"></label>
+    <label>Personal Access Token（仅勾选 repo 权限）<input id="ghToken" placeholder="ghp_..." type="password"></label>
+    <button id="saveGh">保存设置</button>
+    <p class="muted">Token 仅保存在你的浏览器。任何时候都可以撤销/更换。</p>
+  </section>
+  <section class="card">
+    <h2>回忆管理</h2>
+    <label>日期 <input id="memDate" type="date"></label>
+    <label>标题（可选）<input id="memTitle" placeholder="这一天很特别"></label>
+    <label>文字内容（可选）<textarea id="memText" rows="5" placeholder="写点什么吧... 支持换行与简单 Markdown"></textarea></label>
+    <label>上传图片（可多选）<input id="memPhotos" type="file" accept="image/*" multiple></label>
+    <label>上传视频（可多选）<input id="memVideos" type="file" accept="video/*" multiple></label>
+    <button id="submitMemory">提交到仓库</button>
+    <div id="memLog" class="log"></div>
+  </section>
+  <section class="card">
+    <h2>音乐管理</h2>
+    <label>音频文件 <input id="musicFile" type="file" accept="audio/*"></label>
+    <label>曲目标题 <input id="musicTitle" placeholder="歌曲名或备注"></label>
+    <button id="submitMusic">添加到播放列表</button>
+    <div id="musicLog" class="log"></div>
+  </section>
+</main>
+<footer class="site-footer">
+  <p>© <span id="year"></span> wxy-wwl.love</p>
+</footer>
+<script src="/assets/js/common.js"></script>
+<script src="/assets/js/admin.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
