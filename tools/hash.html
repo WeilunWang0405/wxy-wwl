@@ -1,0 +1,30 @@
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SHA-256 计算器（前端）</title>
+  <style>body{font:16px/1.6 system-ui;margin:20px} input{padding:8px;width:360px} code{background:#f3f4f6;padding:2px 6px;border-radius:6px}</style>
+  <script>
+    async function sha256Hex(text){
+      const enc = new TextEncoder().encode(text);
+      const buf = await crypto.subtle.digest("SHA-256", enc);
+      const bytes = Array.from(new Uint8Array(buf));
+      return bytes.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+    async function go(){
+      const t = document.getElementById("t").value;
+      const h = await sha256Hex(t);
+      document.getElementById("out").textContent = h;
+    }
+  </script>
+</head>
+<body>
+  <h1>SHA-256 计算器（离线）</h1>
+  <p>输入密码字符串，得到十六进制哈希值；复制到 <code>/assets/js/gate.js</code> 的 <code>PASS_HASH</code> 即可。</p>
+  <input id="t" placeholder="输入任意密码字符串">
+  <button onclick="go()">计算</button>
+  <p>SHA-256：<code id="out"></code></p>
+</body>
+</html>

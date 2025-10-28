@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>日历回忆 · wxy ❤ wwl</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script src="/assets/js/gate.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>WXY ❤ WWL</h1>
+  <nav>
+    <a href="/index.html">首页</a>
+    <a href="/calendar.html">日历回忆</a>
+    <a href="/gallery.html">照片墙</a>
+    <a href="/music.html">背景音乐</a>
+    <a href="/admin.html">管理页</a>
+    <a id="logoutLink">退出</a>
+  </nav>
+</header>
+<script src="/assets/js/gate.js"></script>
+<script>
+  const $logout = document.getElementById('logoutLink');
+  if($logout){ $logout.addEventListener('click', (e)=>{ e.preventDefault(); window.__gate__.logoutAndLock(); }); }
+</script>
+
+<main class="calendar-page">
+  <div class="calendar-controls">
+    <button id="prevMonth">◀</button>
+    <div id="monthLabel"></div>
+    <button id="nextMonth">▶</button>
+  </div>
+  <div id="calendar" class="calendar-grid"></div>
+  <div id="memoryModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="modal-close" id="closeModal">×</button>
+      <div id="memoryContainer"></div>
+      <div class="modal-actions">
+        <a id="editInAdmin" class="btn" href="/admin.html" target="_blank">在管理页编辑</a>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="site-footer">
+  <p>© <span id="year"></span> wxy-wwl.love</p>
+</footer>
+<script src="/assets/js/common.js"></script>
+<script src="/assets/js/calendar.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

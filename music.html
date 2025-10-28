@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>背景音乐 · wxy ❤ wwl</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script src="/assets/js/gate.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>WXY ❤ WWL</h1>
+  <nav>
+    <a href="/index.html">首页</a>
+    <a href="/calendar.html">日历回忆</a>
+    <a href="/gallery.html">照片墙</a>
+    <a href="/music.html">背景音乐</a>
+    <a href="/admin.html">管理页</a>
+    <a id="logoutLink">退出</a>
+  </nav>
+</header>
+<script src="/assets/js/gate.js"></script>
+<script>
+  const $logout = document.getElementById('logoutLink');
+  if($logout){ $logout.addEventListener('click', (e)=>{ e.preventDefault(); window.__gate__.logoutAndLock(); }); }
+</script>
+
+<main class="music-page">
+  <div class="player">
+    <audio id="audio" preload="metadata"></audio>
+    <div class="controls">
+      <button id="prevBtn">⏮</button>
+      <button id="playPauseBtn">▶️/⏸</button>
+      <button id="nextBtn">⏭</button>
+      <span id="nowPlaying">未播放</span>
+    </div>
+    <div class="progress">
+      <span id="currentTime">0:00</span>
+      <input id="seekBar" type="range" min="0" max="100" value="0">
+      <span id="duration">0:00</span>
+    </div>
+  </div>
+  <h2>播放列表</h2>
+  <ul id="playlist" class="playlist"></ul>
+</main>
+<footer class="site-footer">
+  <p>© <span id="year"></span> wxy-wwl.love</p>
+</footer>
+<script src="/assets/js/common.js"></script>
+<script src="/assets/js/player.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
