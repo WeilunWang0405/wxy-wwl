@@ -28,9 +28,13 @@
 
 <main class="calendar-page">
   <div class="calendar-controls">
-    <button id="prevMonth">◀</button>
+    <button id="prevMonth" title="上一月">◀</button>
     <div id="monthLabel"></div>
-    <button id="nextMonth">▶</button>
+    <button id="nextMonth" title="下一月">▶</button>
+  
+    <!-- 新增：年份与月份选择 -->
+    <select id="yearSelect" aria-label="选择年份"></select>
+    <select id="monthSelect" aria-label="选择月份"></select>
   </div>
   <div id="calendar" class="calendar-grid"></div>
   <div id="memoryModal" class="modal hidden">
