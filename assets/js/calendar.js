@@ -9,18 +9,87 @@
   const memContainer = $('#memoryContainer');
   const editInAdmin = $('#editInAdmin');
 
+    // 新增：下拉框
+  const yearSelect = $('#yearSelect');
+  const monthSelect = $('#monthSelect');
+
+  // 用已有回忆范围决定年份区间，若没有则用「当前年±10」
+  function getYearRangeFromIndex(index) {
+    const years = index.entries
+      .map(e => parseInt((e.date || '').slice(0,4), 10))
+      .filter(y => Number.isFinite(y));
+    const nowY = new Date().getFullYear();
+    const minY = years.length ? Math.min(...years) : (nowY - 10);
+    const maxY = years.length ? Math.max(...years) : (nowY + 10);
+    return [minY, maxY];
+  }
+
+  function fillYearOptions(minY, maxY) {
+    if (!yearSelect) return;
+    yearSelect.innerHTML = '';
+    for (let y = minY; y <= maxY; y++) {
+      const opt = document.createElement('option');
+      opt.value = String(y);
+      opt.textContent = String(y);
+      yearSelect.appendChild(opt);
+    }
+  }
+
+  function fillMonthOptions() {
+    if (!monthSelect) return;
+    monthSelect.innerHTML = '';
+    for (let m = 1; m <= 12; m++) {
+      const opt = document.createElement('option');
+      opt.value = String(m);
+      opt.textContent = `${m} 月`;
+      monthSelect.appendChild(opt);
+    }
+  }
+
+  // 统一跳转到某年某月（m: 0-11）
+  function gotoYM(y, m) {
+    // 始终定位到当月1号，防止 31→2月 溢出
+    const yy = parseInt(y, 10);
+    const mm = parseInt(m, 10);
+    // 使用 new Date(yy, mm, 1) 更稳妥
+    view = new Date(yy, mm, 1);
+    render();
+  }
+
+  
   const index = await loadMemIndex();
   const memMap = new Map(index.entries.map(e => [e.date, e]));
 
   let view = new Date();
   view.setDate(1);
 
+    // 新增：初始化下拉与监听
+  if (yearSelect && monthSelect) {
+    const [minY, maxY] = getYearRangeFromIndex(index);
+    fillYearOptions(minY, maxY);
+    fillMonthOptions();
+
+    yearSelect.addEventListener('change', () => {
+      const y = yearSelect.value;
+      const m = (monthSelect.value ? parseInt(monthSelect.value,10)-1 : view.getMonth());
+      gotoYM(y, m);
+    });
+    monthSelect.addEventListener('change', () => {
+      const y = (yearSelect.value ? parseInt(yearSelect.value,10) : view.getFullYear());
+      const m = parseInt(monthSelect.value, 10) - 1;
+      gotoYM(y, m);
+    });
+  }
+
+  
   function daysInMonth(y, m){ return new Date(y, m+1, 0).getDate(); }
 
   function render(){
     const y = view.getFullYear();
     const m = view.getMonth();
     monthLabel.textContent = `${y} 年 ${m+1} 月`;
+    if (yearSelect)  yearSelect.value  = String(y);
+    if (monthSelect) monthSelect.value = String(m + 1);
     cal.innerHTML = '';
 
     const firstWeekday = new Date(y, m, 1).getDay();
